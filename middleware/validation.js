@@ -14,6 +14,7 @@ const addBlogSchema = Joi.object({
     tags: Joi.array()
         .items(Joi.string()),
     body: Joi.string()
+         .min(100)
         .required()         
 });
 

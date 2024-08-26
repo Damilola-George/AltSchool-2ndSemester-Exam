@@ -1,6 +1,9 @@
 const blog = require("../model/post");
 const moment = require('moment')
 const {readingTime} = require("../utils/helper");
+const NodeCache = require('node-cache');
+const cache = new NodeCache({ stdTTL: 600 }); // Cache expiration time set to 600 seconds (10 minutes)
+
 
 
 

@@ -1,3 +1,5 @@
+//ALT SCHOOL 2ND SEMESTER EXAM PROJECT
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('./middleware/logging/logger');
