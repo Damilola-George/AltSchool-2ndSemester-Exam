@@ -32,7 +32,14 @@ const createPost = async(req, res, next) => {
 
 
 const getAllPost = async(req, res, next) => {
+    const cacheKey = `allPosts-${JSON.stringify(req.query)}`;
+    const cachedData = cache.get(cacheKey);
     console.log(req.user)
+
+    if (cachedData) {
+        return res.status(200).json(cachedData);
+    }
+
     try {
         const {query} = req;
         const {
@@ -86,12 +93,18 @@ const getAllPost = async(req, res, next) => {
             .limit(per_page)
             .populate('author')
 
+        const result = {
+                status: true,
+                page: page + 1,
+                posts
+            };
 
-        return res.status(200).json({
-            status : true,
-            page: page+1,
-            posts
-        })    
+
+
+        cache.set(cacheKey, result); // Cache the result
+
+        return res.status(200).json(result);
+
 
     } catch (error) {
         next(error)
